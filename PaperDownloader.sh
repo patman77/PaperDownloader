@@ -68,7 +68,8 @@ download_pdfs_from_page() {
     echo "Fetching results from: $page_url"
 
     # Set up proxy if enabled
-    local curl_opts="-A \"$USER_AGENT\""
+    #local curl_opts="-A \"$USER_AGENT\""
+    local curl_opts=""
     if [ $USE_PROXY -eq 1 ]; then
         if [ -z "$PROXY_URL" ]; then
             echo "Proxy option enabled but no proxy URL provided."
@@ -101,8 +102,8 @@ download_pdfs_from_page() {
         echo "curl command: curl $curl_opts -O \"$clean_link\""
 
         # Execute curl command
-        curl -x "http://127.0.0.1:3128" -O "$clean_link"
-        
+        curl $curl_opts -O "$clean_link"
+
         # Check if the file was downloaded
         if [ $? -ne 0 ]; then
             echo "Failed to download $clean_link"
